@@ -1,11 +1,10 @@
-package com.keloop.gankiok
+package com.keloop.gankiok.ui
 
 import android.animation.Animator
 import android.content.Intent
 import android.os.Bundle
-import android.os.PersistableBundle
 import androidx.appcompat.app.AppCompatActivity
-
+import com.keloop.gankiok.R
 import kotlinx.android.synthetic.main.activity_start.*
 
 class StartActivity : AppCompatActivity() {

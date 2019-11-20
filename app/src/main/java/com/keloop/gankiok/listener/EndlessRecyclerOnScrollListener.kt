@@ -1,4 +1,4 @@
-package com.keloop.gankiok
+package com.keloop.gankiok.listener
 
 
 import androidx.recyclerview.widget.LinearLayoutManager

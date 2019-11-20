@@ -1,6 +1,7 @@
 package com.keloop.gankiok
 
 import android.app.Application
+import com.keloop.gankiok.network.RetrofitWrap
 
 class App : Application(){
 

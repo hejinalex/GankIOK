@@ -13,7 +13,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
-            android:name=".StartActivity"
+            android:name=".ui.StartActivity"
             android:screenOrientation="portrait"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar">
             <intent-filter>
@@ -22,9 +22,9 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".MainActivity"
+        <activity android:name=".ui.MainActivity"
             android:screenOrientation="portrait"/>
-        <activity android:name=".WebActivity"
+        <activity android:name=".ui.WebActivity"
             android:screenOrientation="portrait"/>
     </application>
 

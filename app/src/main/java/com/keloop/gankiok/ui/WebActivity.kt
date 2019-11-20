@@ -1,9 +1,10 @@
-package com.keloop.gankiok
+package com.keloop.gankiok.ui
 
 import android.os.Bundle
 import android.view.View
 import android.webkit.*
 import androidx.appcompat.app.AppCompatActivity
+import com.keloop.gankiok.R
 
 import kotlinx.android.synthetic.main.activity_web.*
 

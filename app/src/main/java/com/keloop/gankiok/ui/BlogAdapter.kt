@@ -1,31 +1,22 @@
-package com.keloop.gankiok
+package com.keloop.gankiok.ui
 
 import android.view.LayoutInflater
-import android.view.TextureView
 import android.view.View
 import android.view.ViewGroup
 import android.widget.LinearLayout
 import android.widget.ProgressBar
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
+import com.keloop.gankiok.*
+import com.keloop.gankiok.constant.*
+import com.keloop.gankiok.model.Blog
 
 class BlogAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
-    private var blogs: MutableList<Blog> = mutableListOf()
+    private var blog: MutableList<Blog> = mutableListOf()
 
     // 当前加载状态，默认为加载完成
-    private var loadState = 2
-    // 正在加载
-    val LOADING = 1
-    // 加载完成
-    val LOADING_COMPLETE = 2
-    // 加载到底
-    val LOADING_END = 3
-    //加载失败
-    val LOADING_ERROR = 4
-
-    val FOOTER_VIEW_TYPE = 0
-    val CONTENT_VIEW_TYPE = 1
+    private var loadState = LOADING_COMPLETE
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
         val itemView: View
@@ -36,33 +27,31 @@ class BlogAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
         } else {
             itemView =
                 LayoutInflater.from(parent.context).inflate(R.layout.item_blog, parent, false)
-            itemView.setOnClickListener {
-            }
             BlogViewHolder(itemView)
         }
     }
 
     override fun getItemViewType(position: Int) =
-        if (position == blogs.size) FOOTER_VIEW_TYPE else CONTENT_VIEW_TYPE
+        if (position == blog.size) FOOTER_VIEW_TYPE else BLOG_CONTENT_VIEW_TYPE
 
     override fun getItemCount(): Int {
-        return if (blogs.isEmpty()) 0 else blogs.size + 1
+        return if (blog.isEmpty()) 0 else blog.size + 1
     }
 
-    fun setBlogs(blogs: List<Blog>) {
-        this.blogs.clear()
-        this.blogs.addAll(blogs)
+    fun setBlog(blog: List<Blog>) {
+        this.blog.clear()
+        this.blog.addAll(blog)
     }
 
-    fun addBlogs(blogs: List<Blog>) {
-        this.blogs.addAll(blogs)
+    fun addBlog(blog: List<Blog>) {
+        this.blog.addAll(blog)
     }
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
         if (holder is BlogViewHolder) {
-            holder.bindData(blogs[position])
+            holder.bindData(blog[position])
             holder.itemView.setOnClickListener {
-                listener.onClick(blogs[position].url)
+                listener.onClick(blog[position].url)
             }
         } else if (holder is FooterViewHolder) {
             when (this.loadState) {
@@ -124,7 +113,7 @@ class BlogAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
         fun onClick(url: String)
     }
 
-    fun setOnItemClickListener(listener:OnItemClickListener) {
+    fun setOnItemClickListener(listener: OnItemClickListener) {
         this.listener = listener
     }
 

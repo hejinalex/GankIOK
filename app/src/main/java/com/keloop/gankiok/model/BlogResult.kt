@@ -1,4 +1,4 @@
-package com.keloop.gankiok
+package com.keloop.gankiok.model
 
 data class BlogResult(
     val error: Boolean,

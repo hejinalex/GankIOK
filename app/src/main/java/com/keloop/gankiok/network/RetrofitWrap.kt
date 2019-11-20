@@ -1,17 +1,11 @@
-package com.keloop.gankiok
+package com.keloop.gankiok.network
 
 import android.util.Log
 import okhttp3.OkHttpClient
-import okhttp3.RequestBody
-import okhttp3.ResponseBody
 import okhttp3.logging.HttpLoggingInterceptor
-import retrofit2.Converter
 import retrofit2.Retrofit
 import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
 import retrofit2.converter.gson.GsonConverterFactory
-import java.io.IOException
-import java.io.OutputStreamWriter
-import java.nio.charset.Charset
 import java.util.concurrent.TimeUnit
 
 class RetrofitWrap private constructor() {

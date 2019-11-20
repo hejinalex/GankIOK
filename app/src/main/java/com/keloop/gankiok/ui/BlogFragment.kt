@@ -1,4 +1,4 @@
-package com.keloop.gankiok
+package com.keloop.gankiok.ui
 
 import android.content.Context
 import android.content.Intent
@@ -9,21 +9,22 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
-import io.reactivex.Observer
+import com.keloop.gankiok.*
+import com.keloop.gankiok.constant.*
+import com.keloop.gankiok.listener.EndlessRecyclerOnScrollListener
+import com.keloop.gankiok.model.Blog
+import com.keloop.gankiok.network.Api
+import com.keloop.gankiok.network.RetrofitWrap
 import io.reactivex.SingleObserver
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.Disposable
-import io.reactivex.functions.Consumer
-import io.reactivex.functions.Function
 import io.reactivex.schedulers.Schedulers
 
 import kotlinx.android.synthetic.main.fragment_blog.*
 
-
 class BlogFragment : Fragment() {
 
     lateinit var mContext: Context
-    val ARG_PARAM = "param_key"
 
     private var name: String? = ""
 
@@ -59,7 +60,8 @@ class BlogFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         adapter = BlogAdapter()
-        adapter.setOnItemClickListener(object : BlogAdapter.OnItemClickListener {
+        adapter.setOnItemClickListener(object :
+            BlogAdapter.OnItemClickListener {
             override fun onClick(url: String) {
                 val intent = Intent(mContext, WebActivity::class.java)
                 intent.putExtra("url", url)
@@ -68,20 +70,20 @@ class BlogFragment : Fragment() {
         })
         name = arguments?.getString(ARG_PARAM)
         swipeLayout.setOnRefreshListener {
-            getBlogs(true)
+            getBlog(true)
         }
         recyclerView.layoutManager = LinearLayoutManager(mContext)
         recyclerView.adapter = adapter
         recyclerView.addOnScrollListener(object : EndlessRecyclerOnScrollListener() {
             override fun onLoadMore() {
-                adapter.setLoadState(adapter.LOADING)
-                getBlogs(false)
+                adapter.setLoadState(LOADING)
+                getBlog(false)
             }
         })
-        getBlogs(true)
+        getBlog(true)
     }
 
-    fun getBlogs(isRefresh: Boolean) {
+    fun getBlog(isRefresh: Boolean) {
         if (isRefresh) mPage = 1
         RetrofitWrap.service(Api::class.java)
             .getBlog(name!!, 10, mPage)
@@ -94,11 +96,11 @@ class BlogFragment : Fragment() {
                 override fun onSuccess(t: List<Blog>) {
                     swipeLayout.isRefreshing = false
                     if (isRefresh) {
-                        adapter.setBlogs(t)
+                        adapter.setBlog(t)
                     } else {
-                        adapter.addBlogs(t)
+                        adapter.addBlog(t)
                     }
-                    adapter.setLoadState(adapter.LOADING_COMPLETE)
+                    adapter.setLoadState(LOADING_COMPLETE)
                     mPage++
                 }
 
@@ -109,7 +111,7 @@ class BlogFragment : Fragment() {
 
                 override fun onError(e: Throwable) {
                     swipeLayout.isRefreshing = false
-                    adapter.setLoadState(adapter.LOADING_ERROR)
+                    adapter.setLoadState(LOADING_ERROR)
                     Toast.makeText(mContext, "网络异常", Toast.LENGTH_SHORT).show()
                 }
 

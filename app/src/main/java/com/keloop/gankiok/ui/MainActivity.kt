@@ -1,20 +1,10 @@
-package com.keloop.gankiok
+package com.keloop.gankiok.ui
 
-import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.widget.Adapter
-import android.widget.Toast
-import androidx.fragment.app.Fragment
-import androidx.fragment.app.FragmentManager
-import androidx.fragment.app.FragmentTransaction
-import androidx.recyclerview.widget.LinearLayoutManager
-import io.reactivex.SingleObserver
-import io.reactivex.android.schedulers.AndroidSchedulers
-import io.reactivex.disposables.Disposable
-import io.reactivex.schedulers.Schedulers
+import androidx.appcompat.app.AppCompatActivity
+import com.keloop.gankiok.R
+import com.keloop.gankiok.utils.*
 import kotlinx.android.synthetic.main.activity_main.*
-import kotlinx.android.synthetic.main.fragment_blog.*
 
 class MainActivity : AppCompatActivity() {
 
@@ -69,24 +59,6 @@ class MainActivity : AppCompatActivity() {
             addFragment(fragments[index], R.id.flContent)
         }
         showFragment(fragments[index])
-    }
-
-    private inline fun FragmentManager.inTransaction(func: FragmentTransaction.() -> Unit) {
-        val fragmentTransaction = beginTransaction()
-        fragmentTransaction.func()
-        fragmentTransaction.commit()
-    }
-
-    private fun AppCompatActivity.addFragment(fragment: Fragment, frameId: Int) {
-        supportFragmentManager.inTransaction { add(frameId, fragment) }
-    }
-
-    private fun AppCompatActivity.showFragment(fragment: Fragment) {
-        supportFragmentManager.inTransaction { show(fragment) }
-    }
-
-    private fun AppCompatActivity.hideFragment(fragment: Fragment) {
-        supportFragmentManager.inTransaction { hide(fragment) }
     }
 
 }

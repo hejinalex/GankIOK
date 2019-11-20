@@ -1,6 +1,6 @@
-package com.keloop.gankiok
+package com.keloop.gankiok.network
 
-import io.reactivex.Observable
+import com.keloop.gankiok.model.BlogResult
 import io.reactivex.Single
 import retrofit2.http.GET
 import retrofit2.http.Path
