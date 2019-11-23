@@ -13,11 +13,14 @@ import com.keloop.gankiok.*
 import com.keloop.gankiok.constant.*
 import com.keloop.gankiok.listener.EndlessRecyclerOnScrollListener
 import com.keloop.gankiok.model.Blog
+import com.keloop.gankiok.model.BlogResult
 import com.keloop.gankiok.network.Api
 import com.keloop.gankiok.network.RetrofitWrap
 import io.reactivex.SingleObserver
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.Disposable
+import io.reactivex.functions.Consumer
+import io.reactivex.functions.Function
 import io.reactivex.schedulers.Schedulers
 
 import kotlinx.android.synthetic.main.fragment_blog.*
@@ -87,9 +90,7 @@ class BlogFragment : Fragment() {
         if (isRefresh) mPage = 1
         RetrofitWrap.service(Api::class.java)
             .getBlog(name!!, 10, mPage)
-            .map {
-                it.results
-            }
+            .map { it.results }
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe(object : SingleObserver<List<Blog>> {
@@ -114,7 +115,6 @@ class BlogFragment : Fragment() {
                     adapter.setLoadState(LOADING_ERROR)
                     Toast.makeText(mContext, "网络异常", Toast.LENGTH_SHORT).show()
                 }
-
             })
     }
 

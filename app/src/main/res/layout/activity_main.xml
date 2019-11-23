@@ -7,16 +7,18 @@
     android:orientation="vertical"
     tools:context=".ui.MainActivity">
 
-    <FrameLayout
-        android:id="@+id/flContent"
+    <androidx.viewpager.widget.ViewPager
+        android:id="@+id/viewPager"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="1" />
+        android:layout_weight="1"/>
 
     <com.google.android.material.bottomnavigation.BottomNavigationView
         android:id="@+id/bottomNavi"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="60dp"
+        android:translationZ="3dp"
+        app:itemBackground="@null"
         app:menu="@menu/bottom_menu" />
 
 </LinearLayout>
